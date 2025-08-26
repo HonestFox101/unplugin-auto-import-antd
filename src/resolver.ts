@@ -1,17 +1,17 @@
 import type { Resolver } from 'unplugin-auto-import/types'
 
-import { antdBuiltInComponents } from './preset'
 import type { AntdResolverOptions } from './types'
+import { antdBuiltInComponents } from './preset'
 import { getAntdComponentsMap } from './utils'
 
-export const antdResolver = (options: AntdResolverOptions = {}): Resolver => {
-  const { prefix, packageName: from = 'antd' } = options
-  const antdComponentsMap = getAntdComponentsMap(prefix)
+export function antdResolver(options: AntdResolverOptions = {}): Resolver {
+  const { prefix, packageName: from = 'antd', preset = antdBuiltInComponents } = options
+  const antdComponentsMap = getAntdComponentsMap(prefix, preset)
   return {
     type: 'component',
     resolve: (originName: string) => {
       if (!prefix) {
-        if (antdBuiltInComponents.includes(originName)) {
+        if (preset.includes(originName)) {
           return {
             from,
             name: originName

@@ -121,6 +121,31 @@ Install `antd` via an alias, such as `antd-v5`.
 
 Equivalent to `import { Button } from 'antd-v5'`.
 
+### Using manual preset
+
+```ts
+// vite.config.ts
+import AutoImport from 'unplugin-auto-import/vite'
+import AntdResolver, { allComponents } from 'unplugin-auto-import-antd'
+
+// Remove `Button` component
+const preset = [...allComponents].splice(allComponents.indexOf('Button'), 1)
+
+export default defineConfig({
+  plugins: [
+    AutoImport({
+      resolvers: [
+        AntdResolver({
+          preset: preset // `Button` component won't be auto imported
+        })
+      ]
+    })
+  ]
+})
+```
+
+By customizing the components preset, you can selectively auto-import the required components.
+
 ## License
 
 [MIT](/LICENSE) License &copy; 2024 [Bruce Song](https://github.com/recallwei)

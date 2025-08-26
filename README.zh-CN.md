@@ -121,6 +121,31 @@ export default defineConfig({
 
 等价于 `import { Button } from 'antd-v5'`
 
+### 组件预设
+
+```ts
+// vite.config.ts
+import AutoImport from 'unplugin-auto-import/vite'
+import AntdResolver, { allComponents } from 'unplugin-auto-import-antd'
+
+// Remove `Button` component
+const preset = [...allComponents].splice(allComponents.indexOf('Button'), 1)
+
+export default defineConfig({
+  plugins: [
+    AutoImport({
+      resolvers: [
+        AntdResolver({
+          preset: preset // `Button` component won't be auto imported
+        })
+      ]
+    })
+  ]
+})
+```
+
+通过自定义组件预设，可以选择性地自动导入需要的组件。
+
 ## License
 
 [MIT](/LICENSE) License &copy; 2024 [Bruce Song](https://github.com/recallwei)

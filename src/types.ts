@@ -9,4 +9,8 @@ export interface AntdResolverOptions {
    * @default antd
    */
   packageName?: string
+  /**
+   * 要导入的组件，不指定则默认导入全部
+   */
+  preset?: string[]
 }
